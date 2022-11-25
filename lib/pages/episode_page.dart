@@ -11,7 +11,7 @@ class EpisodePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Episode $id'),
+        title: Text('Episode ${id + 1}'),
       ),
     );
   }

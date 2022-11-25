@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rick_and_morty_episodes_display/pages/episodes_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final client = getGraphQlClient();
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: EpisodesPage(),
+    return GraphQLProvider(
+      client: client,
+      child: MaterialApp(
+        home: EpisodesPage(),
+      ),
     );
   }
+}
+
+ValueNotifier<GraphQLClient> getGraphQlClient() {
+  final HttpLink httpLink = HttpLink("https://rickandmortyapi.com/graphql");
+
+  return ValueNotifier(
+    GraphQLClient(
+      link: httpLink,
+      cache: GraphQLCache(store: InMemoryStore()),
+    ),
+  );
 }
