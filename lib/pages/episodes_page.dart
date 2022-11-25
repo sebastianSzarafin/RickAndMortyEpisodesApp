@@ -50,15 +50,44 @@ class EpisodesPage extends HookWidget {
             child: ListView.builder(
               itemCount: episodesCount,
               itemBuilder: ((context, index) => Card(
-                    child: ListTile(
-                      title: Text('Episode ${index + 1}'),
-                      subtitle: Text('sub'),
-                      trailing: const Icon(Icons.arrow_forward),
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => EpisodePage(id: index),
-                        ));
-                      },
+                    // child: ListTile(
+                    //   title: Text('Episode ${index + 1}'),
+                    //   subtitle: Text('sub'),
+                    //   trailing: const Icon(Icons.arrow_forward),
+                    //   onTap: () {
+                    //     Navigator.of(context).push(MaterialPageRoute(
+                    //       builder: (context) => EpisodePage(id: index),
+                    //     ));
+                    //   },
+                    // ),
+                    child: Query(
+                      options: QueryOptions(
+                          document: gql(singleEpisodeGraphQL),
+                          variables: {'id': index + 1}),
+                      builder: ((result, {fetchMore, refetch}) {
+                        if (result.hasException) {
+                          return Text(result.exception.toString());
+                        }
+
+                        if (result.isLoading) {
+                          return Container();
+                        }
+
+                        return ListTile(
+                          title: Text(
+                            'Episode ${result.data?['episode']?['id']}: ${result.data?['episode']?['name']}',
+                            style: const TextStyle(
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                          subtitle: Text(result.data?['episode']?['episode']),
+                          trailing: const Icon(Icons.arrow_forward),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => EpisodePage(id: index),
+                            ));
+                          },
+                        );
+                      }),
                     ),
                   )),
             ),
@@ -313,8 +342,13 @@ class EpisodesPage extends HookWidget {
 //   }
 
 //   if (result.isLoading) {
-//     const Center(
-//       child: CircularProgressIndicator(),
+//     Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Rick & Morty Episodes App'),
+//       ),
+//       body: const Center(
+//         child: CircularProgressIndicator(),
+//       ),
 //     );
 //   }
 
