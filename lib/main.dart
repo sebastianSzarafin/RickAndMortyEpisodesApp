@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:rick_and_morty_episodes_display/pages/episode_page.dart';
 import 'package:rick_and_morty_episodes_display/pages/episodes_page.dart';
 
 void main() {
@@ -15,8 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GraphQLProvider(
       client: client,
-      child: MaterialApp(
+      child: const MaterialApp(
         home: EpisodesPage(),
+        //home: EpisodePage(id: 1),
       ),
     );
   }
@@ -28,7 +30,8 @@ ValueNotifier<GraphQLClient> getGraphQlClient() {
   return ValueNotifier(
     GraphQLClient(
       link: httpLink,
-      cache: GraphQLCache(store: InMemoryStore()),
+      cache: GraphQLCache(
+          store: InMemoryStore()), //, typePolicies: {FetchPolicy.noCache}
     ),
   );
 }
