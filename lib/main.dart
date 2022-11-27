@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:rick_and_morty_episodes_display/pages/episode_page.dart';
 import 'package:rick_and_morty_episodes_display/pages/episodes_page.dart';
 
 void main() {
