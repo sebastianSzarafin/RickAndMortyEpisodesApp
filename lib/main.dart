@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rick_and_morty_episodes_display/pages/episodes_page.dart';
+import 'package:desktop_window/desktop_window.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() {
   runApp(MyApp());
@@ -13,6 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    setWindowMinSize(context);
     return GraphQLProvider(
       client: client,
       child: const MaterialApp(
@@ -31,4 +34,11 @@ ValueNotifier<GraphQLClient> getGraphQlClient() {
       cache: GraphQLCache(store: InMemoryStore()),
     ),
   );
+}
+
+Future setWindowMinSize(context) async {
+  var platform = Theme.of(context).platform;
+  if (!kIsWeb && !(platform == TargetPlatform.iOS)) {
+    await DesktopWindow.setMinWindowSize(const Size(400, 400));
+  }
 }
