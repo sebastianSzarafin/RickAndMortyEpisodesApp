@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
       client: client,
       child: const MaterialApp(
         home: EpisodesPage(),
-        //home: EpisodePage(id: 1),
       ),
     );
   }
@@ -29,8 +28,7 @@ ValueNotifier<GraphQLClient> getGraphQlClient() {
   return ValueNotifier(
     GraphQLClient(
       link: httpLink,
-      cache: GraphQLCache(
-          store: InMemoryStore()), //, typePolicies: {FetchPolicy.noCache}
+      cache: GraphQLCache(store: InMemoryStore()),
     ),
   );
 }
