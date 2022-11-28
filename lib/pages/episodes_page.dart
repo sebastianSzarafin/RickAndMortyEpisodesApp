@@ -9,28 +9,9 @@ class EpisodesPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final readEpisodesCount = useQuery(QueryOptions(
-      document: gql(allEpisodesGraphQL),
-    ));
-
-    final result = readEpisodesCount.result;
-
-    if (result.hasException) {
-      return Text(result.exception.toString());
-    }
-
-    if (result.isLoading) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Rick & Morty Episodes App'),
-        ),
-        body: const Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
-
-    final episodesCount = result.data?['episodes']?['info']?['count'];
+    var result = tryGetEpisodesCount();
+    if (!result[0]) return result[1];
+    final episodesCount = result[1];
 
     return Scaffold(
       appBar: AppBar(
@@ -87,4 +68,37 @@ class EpisodesPage extends HookWidget {
       ),
     );
   }
+}
+
+List tryGetEpisodesCount() {
+  final readEpisodesCount = useQuery(QueryOptions(
+    document: gql(allEpisodesGraphQL),
+  ));
+  final result = readEpisodesCount.result;
+
+  if (result.hasException) {
+    return [
+      false,
+      Text(result.exception.toString()),
+    ];
+  }
+
+  if (result.isLoading) {
+    return [
+      false,
+      Scaffold(
+        appBar: AppBar(
+          title: const Text('Rick & Morty Episodes App'),
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+    ];
+  }
+
+  return [
+    true,
+    result.data?['episodes']?['info']?['count'],
+  ];
 }

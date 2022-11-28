@@ -1,7 +1,7 @@
 const allEpisodesGraphQL = """
 query {
-  episodes(page: 1) {
-    info{
+  episodes {
+    info {
       count
     }
   }
