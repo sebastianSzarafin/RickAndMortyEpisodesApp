@@ -9,9 +9,13 @@ class EpisodesPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var result = tryGetEpisodesCount();
-    if (!result[0]) return result[1];
-    final episodesCount = result[1];
+    final readEpisodesCount = useQuery(QueryOptions(
+      document: gql(allEpisodesGraphQL),
+    ));
+    final result = readEpisodesCount.result;
+    var resultList = tryGetEpisodesCount(result);
+    if (!resultList[0]) return resultList[1];
+    final episodesCount = resultList[1];
 
     return Scaffold(
       appBar: AppBar(
@@ -28,40 +32,7 @@ class EpisodesPage extends HookWidget {
           Expanded(
             child: ListView.builder(
               itemCount: episodesCount,
-              itemBuilder: ((context, index) => Card(
-                    child: Query(
-                      options: QueryOptions(
-                          document: gql(singleEpisodeGraphQL),
-                          variables: {'id': index + 1}),
-                      builder: ((result, {fetchMore, refetch}) {
-                        if (result.hasException) {
-                          return Text(result.exception.toString());
-                        }
-
-                        if (result.isLoading) {
-                          return Container();
-                        }
-
-                        String title =
-                            'Episode ${result.data?['episode']?['id']}: ${result.data?['episode']?['name']}';
-                        return ListTile(
-                          title: Text(
-                            title,
-                            style: const TextStyle(
-                                overflow: TextOverflow.ellipsis),
-                          ),
-                          subtitle: Text(result.data?['episode']?['episode']),
-                          trailing: const Icon(Icons.arrow_forward),
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  EpisodePage(id: index + 1, title: title),
-                            ));
-                          },
-                        );
-                      }),
-                    ),
-                  )),
+              itemBuilder: ((context, index) => EpisodeItem(index: index)),
             ),
           )
         ],
@@ -70,16 +41,55 @@ class EpisodesPage extends HookWidget {
   }
 }
 
-List tryGetEpisodesCount() {
-  final readEpisodesCount = useQuery(QueryOptions(
-    document: gql(allEpisodesGraphQL),
-  ));
-  final result = readEpisodesCount.result;
+class EpisodeItem extends StatelessWidget {
+  const EpisodeItem({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
 
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Query(
+        options: QueryOptions(
+            document: gql(singleEpisodeGraphQL), variables: {'id': index + 1}),
+        builder: ((result, {fetchMore, refetch}) {
+          if (result.hasException) {
+            return const Text('There was an issue loading this episode');
+          }
+
+          if (result.isLoading) {
+            return Container();
+          }
+
+          String title =
+              'Episode ${result.data?['episode']?['id']}: ${result.data?['episode']?['name']}';
+          return ListTile(
+            title: Text(
+              title,
+              style: const TextStyle(overflow: TextOverflow.ellipsis),
+            ),
+            subtitle: Text(result.data?['episode']?['episode']),
+            trailing: const Icon(Icons.arrow_forward),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EpisodePage(id: index + 1, title: title),
+              ));
+            },
+          );
+        }),
+      ),
+    );
+  }
+}
+
+List tryGetEpisodesCount(result) {
   if (result.hasException) {
     return [
       false,
-      Text(result.exception.toString()),
+      const Text('There was an issue loading this page'),
     ];
   }
 
