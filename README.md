@@ -1,17 +1,10 @@
-# rick_and_morty_episodes_display
+# Rick & Morty Episodes App
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# RickAndMortyEpisodesApp
+  This small aplication allows user to browse through all episodes of the title series, as well as check some basic informations about characters which appeared in selected episode. 
+  It uses the [Rick and Morty TV series GraphQL API](https://rickandmortyapi.com/documentation/#graphql).
+ 
+<p float="left" align="center">
+  <img width="300" alt="Zrzut ekranu 2022-11-27 o 22 55 45" src="https://user-images.githubusercontent.com/74315304/204161928-a5f58ae7-541b-4b44-a2c3-a20f096bfb59.png">
+  &nbsp&nbsp&nbsp&nbsp
+  <img width="300" alt="Zrzut ekranu 2022-11-27 o 22 56 41" src="https://user-images.githubusercontent.com/74315304/204161932-b18463f2-687d-45cd-9f15-b1d59178ae6b.png">
+</p> 
