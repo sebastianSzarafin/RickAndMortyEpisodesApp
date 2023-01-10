@@ -36,31 +36,34 @@ class _RMBottomNavigationBarState extends State<RMBottomNavigationBar> {
       child: SafeArea(
         top: false,
         bottom: true,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            RMNavigationBarItem(
-              index: 0,
-              label: 'Characters',
-              icon: CupertinoIcons.square_pencil_fill,
-              isSelected: (selectedIndex == 0),
-              onTap: handleItemSelected,
-            ),
-            RMNavigationBarItem(
-              index: 1,
-              label: 'Episodes',
-              icon: CupertinoIcons.square_pencil_fill,
-              isSelected: (selectedIndex == 1),
-              onTap: handleItemSelected,
-            ),
-            RMNavigationBarItem(
-              index: 2,
-              label: 'Locations',
-              icon: CupertinoIcons.square_pencil_fill,
-              isSelected: (selectedIndex == 2),
-              onTap: handleItemSelected,
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              RMNavigationBarItem(
+                index: 0,
+                label: 'Characters',
+                icon: CupertinoIcons.group_solid,
+                isSelected: (selectedIndex == 0),
+                onTap: handleItemSelected,
+              ),
+              RMNavigationBarItem(
+                index: 1,
+                label: 'Episodes',
+                icon: CupertinoIcons.film_fill,
+                isSelected: (selectedIndex == 1),
+                onTap: handleItemSelected,
+              ),
+              RMNavigationBarItem(
+                index: 2,
+                label: 'Locations',
+                icon: CupertinoIcons.compass_fill,
+                isSelected: (selectedIndex == 2),
+                onTap: handleItemSelected,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -90,31 +93,25 @@ class RMNavigationBarItem extends StatelessWidget {
       onTap: () => onTap(index),
       child: SizedBox(
         width: 75,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                icon,
-                size: 20,
-                color: isSelected ? AppColors.secondary : null,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                label,
-                style: isSelected
-                    ? const TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.secondary)
-                    : const TextStyle(fontSize: 11),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 25,
+              color: isSelected ? AppColors.currentScreen : null,
+            ),
+            Text(
+              label,
+              style: isSelected
+                  ? const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.currentScreen)
+                  : const TextStyle(fontSize: 13),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
