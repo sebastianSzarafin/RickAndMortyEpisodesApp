@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rick_and_morty_episodes_display/pages/episode_page.dart';
 import 'package:rick_and_morty_episodes_display/queries/queries.dart';
+import 'package:rick_and_morty_episodes_display/utils/rm_circullarprogressindicator.dart';
+import 'package:rick_and_morty_episodes_display/utils/rm_scaffold.dart';
 
 class EpisodesPage extends HookWidget {
   const EpisodesPage({super.key});
@@ -17,26 +19,13 @@ class EpisodesPage extends HookWidget {
     if (!resultList[0]) return resultList[1];
     final episodesCount = resultList[1];
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Rick & Morty Episodes App'),
-      ),
-      body: Column(
-        children: [
-          const SizedBox(height: 25),
-          const Text(
-            'All episodes',
-            style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15),
-          ),
-          const SizedBox(height: 25),
-          Expanded(
-            child: ListView.builder(
-              itemCount: episodesCount,
-              itemBuilder: ((context, index) => EpisodeItem(index: index)),
-            ),
-          )
-        ],
-      ),
+    return RMScaffold(
+      getList: () {
+        return SliverList(
+            delegate: SliverChildListDelegate([
+          for (var i = 0; i < episodesCount; i++) EpisodeItem(index: i)
+        ]));
+      },
     );
   }
 }
@@ -101,7 +90,7 @@ List tryGetEpisodesCount(result) {
           title: const Text('Rick & Morty Episodes App'),
         ),
         body: const Center(
-          child: CircularProgressIndicator(),
+          child: RMCircullarProgressIndicator(),
         ),
       ),
     ];
