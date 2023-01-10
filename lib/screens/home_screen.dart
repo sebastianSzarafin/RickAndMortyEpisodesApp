@@ -3,6 +3,7 @@ import 'package:rick_and_morty_episodes_display/pages/characters_page.dart';
 import 'package:rick_and_morty_episodes_display/pages/episodes_page.dart';
 import 'package:rick_and_morty_episodes_display/pages/locations_page.dart';
 import 'package:rick_and_morty_episodes_display/utils/rm_navigationbar.dart';
+import 'package:rick_and_morty_episodes_display/utils/rm_navigationdrawer.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -29,6 +30,7 @@ class HomeScreen extends StatelessWidget {
           pageIndex.value = index;
         },
       ),
+      drawer: const RMNavigationDrawer(),
     );
   }
 }
