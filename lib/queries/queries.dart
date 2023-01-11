@@ -1,8 +1,15 @@
 const allEpisodesGraphQL = """
-query {
-  episodes {
-    info {
-      count
+query(\$page: Int) {
+  episodes(page: \$page) {
+    info{
+      count,
+      next,
+      prev
+    }
+    results{
+      id
+      name
+      episode
     }
   }
 }
