@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RMScaffold extends StatelessWidget {
-  const RMScaffold({super.key, required this.getList});
+  const RMScaffold({super.key, required this.getBody});
 
-  final Widget Function() getList;
+  final Widget Function() getBody;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
+    return NestedScrollView(
+      headerSliverBuilder: (context, innerBoxIsScrolled) {
+        return [
           SliverAppBar(
-            floating: true,
+            automaticallyImplyLeading: false,
             backgroundColor: Theme.of(context).cardColor,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
@@ -31,7 +31,7 @@ class RMScaffold extends StatelessWidget {
                         ),
                         IconButton(
                           padding:
-                              const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
+                              const EdgeInsets.fromLTRB(15.0, 5.0, 0.0, 0.0),
                           alignment: Alignment.centerLeft,
                           color: Theme.of(context).colorScheme.secondary,
                           onPressed: () => Scaffold.of(context).openDrawer(),
@@ -51,9 +51,9 @@ class RMScaffold extends StatelessWidget {
               ),
             ),
           ),
-          getList(),
-        ],
-      ),
+        ];
+      },
+      body: getBody(),
     );
   }
 }
