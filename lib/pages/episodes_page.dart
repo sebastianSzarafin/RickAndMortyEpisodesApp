@@ -387,7 +387,7 @@ class _EpisodesPageState extends State<EpisodesPage> {
                           result.data?['episodes']['results'][index];
 
                       return EpisodeItem(
-                        index: index + 1,
+                        index: index,
                         id: episodeData['id'],
                         name: episodeData['name'],
                         episode: episodeData['episode'],
