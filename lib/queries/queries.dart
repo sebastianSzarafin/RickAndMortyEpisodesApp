@@ -1,12 +1,12 @@
 const allEpisodesGraphQL = """
 query(\$page: Int) {
   episodes(page: \$page) {
-    info{
-      count,
-      next,
+    info {
+      count
+      next
       prev
     }
-    results{
+    results {
       id
       name
       episode
@@ -15,12 +15,41 @@ query(\$page: Int) {
 }
 """;
 
-const singleEpisodeGraphQL = """
+const allCharactersGraphQL = """
+query(\$page: Int) {
+  characters(page: \$page) {
+    info {
+      count
+      next
+      prev
+    }
+    results {
+      id
+      name
+      image
+    }
+  }
+}
+""";
+
+const singleCharacterGraphQL = """
 query(\$id: ID!) {
-  episode(id: \$id) {
-    id
+  character(id: \$id) {
     name
-	  episode 
+    status
+    species
+    type
+    gender
+    origin {
+      name
+    }
+    location {
+      name
+    }
+    episode {
+      name
+      episode
+    }
   }
 }
 """;
