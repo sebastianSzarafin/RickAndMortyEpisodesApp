@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rick_and_morty_episodes_display/queries/queries.dart';
-import 'package:rick_and_morty_episodes_display/themes/theme.dart';
 import 'package:rick_and_morty_episodes_display/utils/rm_circullarprogressindicator.dart';
 
 class EpisodePage extends HookWidget {
