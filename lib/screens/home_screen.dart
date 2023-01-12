@@ -1,5 +1,7 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rick_and_morty_episodes_display/main.dart';
 import 'package:rick_and_morty_episodes_display/pages/characters_page.dart';
 import 'package:rick_and_morty_episodes_display/pages/episodes_page.dart';
 import 'package:rick_and_morty_episodes_display/pages/locations_page.dart';
@@ -7,9 +9,7 @@ import 'package:rick_and_morty_episodes_display/utils/widgets/rm_navigationbar.d
 import 'package:rick_and_morty_episodes_display/utils/widgets/rm_navigationdrawer.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
-
-  final ValueNotifier<int> pageIndex = ValueNotifier(1);
+  const HomeScreen({super.key});
 
   final pages = const [
     CharactersPage(),
@@ -19,22 +19,21 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ValueListenableBuilder(
-        valueListenable: pageIndex,
-        builder: (BuildContext context, int value, _) {
-          return ColorfulSafeArea(
+    return Consumer<RMPageController>(
+      builder: (context, controller, child) {
+        return Scaffold(
+          body: ColorfulSafeArea(
             color: Theme.of(context).cardColor,
-            child: pages[value],
-          );
-        },
-      ),
-      bottomNavigationBar: RMBottomNavigationBar(
-        onItemSelected: (index) {
-          pageIndex.value = index;
-        },
-      ),
-      drawer: const RMNavigationDrawer(),
+            child: pages[controller.index],
+          ),
+          bottomNavigationBar: RMBottomNavigationBar(
+            onItemSelected: (index) {
+              controller.setIndex(index);
+            },
+          ),
+          drawer: const RMNavigationDrawer(),
+        );
+      },
     );
   }
 }

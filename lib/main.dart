@@ -6,6 +6,19 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:rick_and_morty_episodes_display/screens/home_screen.dart';
 import 'package:rick_and_morty_episodes_display/themes/theme.dart';
 
+const int initialPageIndex = 1;
+
+class RMPageController extends ChangeNotifier {
+  int _index = initialPageIndex;
+
+  int get index => _index;
+
+  void setIndex(int value) {
+    _index = value;
+    notifyListeners();
+  }
+}
+
 void main() {
   runApp(MyApp(appTheme: AppTheme()));
 }
@@ -19,8 +32,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     setWindowMinSize(context);
-    return ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ListenableProvider(
+          create: (context) => RMPageController(),
+        )
+      ],
       builder: (context, _) {
         final themeProvider = Provider.of<ThemeProvider>(context);
 
@@ -30,7 +48,7 @@ class MyApp extends StatelessWidget {
             theme: appTheme.light,
             darkTheme: appTheme.dark,
             themeMode: themeProvider.themeMode,
-            home: HomeScreen(),
+            home: const HomeScreen(),
           ),
         );
       },
