@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const double appBarHeight = 200;
+
 class RMScaffold extends StatelessWidget {
   const RMScaffold({super.key, required this.getBody});
 
@@ -14,7 +16,7 @@ class RMScaffold extends StatelessWidget {
           SliverAppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Theme.of(context).cardColor,
-            expandedHeight: 200,
+            expandedHeight: appBarHeight,
             flexibleSpace: FlexibleSpaceBar(
               background: SafeArea(
                 child: Column(
@@ -26,7 +28,7 @@ class RMScaffold extends StatelessWidget {
                           child: Image(
                             image: AssetImage(
                                 "assets/images/rick-and-morty-home.png"),
-                            height: 195,
+                            height: appBarHeight,
                           ),
                         ),
                         IconButton(
@@ -42,10 +44,6 @@ class RMScaffold extends StatelessWidget {
                         )
                       ],
                     ),
-                    Container(
-                      height: 5,
-                      color: Theme.of(context).colorScheme.secondary,
-                    )
                   ],
                 ),
               ),
@@ -53,7 +51,16 @@ class RMScaffold extends StatelessWidget {
           ),
         ];
       },
-      body: getBody(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            height: 5,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          Expanded(child: getBody()),
+        ],
+      ),
     );
   }
 }

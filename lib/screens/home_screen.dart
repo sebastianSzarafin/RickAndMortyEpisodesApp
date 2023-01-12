@@ -1,3 +1,4 @@
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_episodes_display/pages/characters_page.dart';
 import 'package:rick_and_morty_episodes_display/pages/episodes_page.dart';
@@ -22,7 +23,10 @@ class HomeScreen extends StatelessWidget {
       body: ValueListenableBuilder(
         valueListenable: pageIndex,
         builder: (BuildContext context, int value, _) {
-          return pages[value];
+          return ColorfulSafeArea(
+            color: Theme.of(context).cardColor,
+            child: pages[value],
+          );
         },
       ),
       bottomNavigationBar: RMBottomNavigationBar(

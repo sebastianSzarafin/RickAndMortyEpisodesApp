@@ -60,8 +60,18 @@ class _CharactersPageState extends State<CharactersPage> {
   ) {
     final length = result.data?['characters']?['results']?.length;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: Text(
+            'All Characters',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+        ),
         Expanded(
           child: NotificationListener<ScrollNotification>(
             child: ListView.builder(

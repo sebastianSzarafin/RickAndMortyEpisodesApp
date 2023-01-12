@@ -60,8 +60,18 @@ class _EpisodesPageState extends State<EpisodesPage> {
   ) {
     final length = result.data?['episodes']?['results']?.length;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: Text(
+            'All Episodes',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+        ),
         Expanded(
           child: NotificationListener<ScrollNotification>(
             child: ListView.builder(
