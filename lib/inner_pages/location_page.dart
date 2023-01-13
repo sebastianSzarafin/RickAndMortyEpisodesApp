@@ -19,7 +19,7 @@ class LocationPage extends HookWidget {
   Future<void> _onPressed(BuildContext context, List<dynamic> residentsData) {
     return showModalBottomSheet<void>(
       context: context,
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(10.0),
@@ -109,7 +109,8 @@ class LocationPage extends HookWidget {
       body: Query(
         options: QueryOptions(
           document: gql(singleLocationGraphQL),
-          fetchPolicy: FetchPolicy.noCache,
+          fetchPolicy: FetchPolicy.cacheAndNetwork,
+          cacheRereadPolicy: CacheRereadPolicy.mergeOptimistic,
           variables: {'id': id},
         ),
         builder: (result, {fetchMore, refetch}) {

@@ -20,7 +20,7 @@ class CharacterPage extends HookWidget {
   Future<void> _onPressed(BuildContext context, List<dynamic> episodeData) {
     return showModalBottomSheet<void>(
       context: context,
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(10.0),
@@ -134,7 +134,8 @@ class CharacterPage extends HookWidget {
       body: Query(
         options: QueryOptions(
           document: gql(singleCharacterGraphQL),
-          fetchPolicy: FetchPolicy.noCache,
+          fetchPolicy: FetchPolicy.cacheAndNetwork,
+          cacheRereadPolicy: CacheRereadPolicy.mergeOptimistic,
           variables: {'id': id},
         ),
         builder: (result, {fetchMore, refetch}) {

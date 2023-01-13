@@ -149,6 +149,8 @@ class _RMPage extends State<RMPage> {
       getBody: () => Query(
         options: QueryOptions(
           document: gql(widget.query),
+          fetchPolicy: FetchPolicy.cacheAndNetwork,
+          cacheRereadPolicy: CacheRereadPolicy.mergeOptimistic,
         ),
         builder: (result, {fetchMore, refetch}) {
           if (result.hasException) {

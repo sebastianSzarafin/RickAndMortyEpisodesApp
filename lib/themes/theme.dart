@@ -48,12 +48,9 @@ class AppTheme {
   /// Light theme and its settings.
   ThemeData get light => ThemeData(
         brightness: Brightness.light,
-        colorScheme:
-            lightBase.colorScheme.copyWith(secondary: AppColors.lightBrown),
         visualDensity: visualDensity,
         textTheme:
             GoogleFonts.mulishTextTheme().apply(bodyColor: AppColors.textDark),
-        backgroundColor: _LightColors.background,
         appBarTheme: lightBase.appBarTheme.copyWith(
           iconTheme: lightBase.iconTheme,
           backgroundColor: Colors.transparent,
@@ -68,7 +65,7 @@ class AppTheme {
         ),
         cardColor: _LightColors.card,
         primaryTextTheme: const TextTheme(
-          headline6: TextStyle(color: AppColors.textDark),
+          titleLarge: TextStyle(color: AppColors.textDark),
         ),
         iconTheme: const IconThemeData(color: AppColors.iconDark),
         textButtonTheme: TextButtonThemeData(
@@ -79,17 +76,17 @@ class AppTheme {
                 MaterialStateColor.resolveWith((states) => AppColors.textDark),
           ),
         ),
+        colorScheme: lightBase.colorScheme
+            .copyWith(secondary: AppColors.lightBrown)
+            .copyWith(background: _LightColors.background),
       );
 
   /// Dark theme and its settings.
   ThemeData get dark => ThemeData(
         brightness: Brightness.dark,
-        colorScheme:
-            darkBase.colorScheme.copyWith(secondary: AppColors.darkBrown),
         visualDensity: visualDensity,
         textTheme:
             GoogleFonts.mulishTextTheme().apply(bodyColor: AppColors.textLigth),
-        backgroundColor: _DarkColors.background,
         appBarTheme: darkBase.appBarTheme.copyWith(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -102,7 +99,7 @@ class AppTheme {
         ),
         cardColor: _DarkColors.card,
         primaryTextTheme: const TextTheme(
-          headline6: TextStyle(color: AppColors.textLigth),
+          titleLarge: TextStyle(color: AppColors.textLigth),
         ),
         listTileTheme: const ListTileThemeData(textColor: AppColors.textLigth),
         iconTheme: const IconThemeData(color: AppColors.iconLight),
@@ -114,5 +111,8 @@ class AppTheme {
                 MaterialStateProperty.all<Color>(AppColors.textLigth),
           ),
         ),
+        colorScheme: darkBase.colorScheme
+            .copyWith(secondary: AppColors.darkBrown)
+            .copyWith(background: _DarkColors.background),
       );
 }

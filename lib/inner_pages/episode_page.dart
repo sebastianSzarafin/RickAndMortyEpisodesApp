@@ -38,7 +38,8 @@ class EpisodePage extends HookWidget {
       body: Query(
         options: QueryOptions(
           document: gql(singleEpisodeCharactersGraphQl),
-          fetchPolicy: FetchPolicy.noCache,
+          fetchPolicy: FetchPolicy.cacheAndNetwork,
+          cacheRereadPolicy: CacheRereadPolicy.values.first,
           variables: {'id': id},
         ),
         builder: (result, {fetchMore, refetch}) {
