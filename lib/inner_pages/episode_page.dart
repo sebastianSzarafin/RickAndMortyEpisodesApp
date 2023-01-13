@@ -19,39 +19,14 @@ class EpisodePage extends HookWidget {
     final characterList = result.data?['episode']?['characters'];
 
     return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 250, mainAxisExtent: 250),
-      itemCount: characterList.length,
-      itemBuilder: (_, index) => Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              color: Theme.of(context).cardColor),
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              children: [
-                Container(
-                  width: 125,
-                  height: 125,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(characterList[index]["image"]),
-                        fit: BoxFit.cover),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  ),
-                ),
-                const SizedBox(height: 25),
-                getParameter(character: characterList[index], p: "name"),
-                getParameter(character: characterList[index], p: "species"),
-                getParameter(character: characterList[index], p: "gender"),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 250, mainAxisExtent: 250),
+        itemCount: characterList.length,
+        itemBuilder: (_, index) {
+          final characterData = characterList[index];
+
+          return EpisodeItem(characterData: characterData);
+        });
   }
 
   @override
@@ -79,6 +54,48 @@ class EpisodePage extends HookWidget {
 
           return _getBody(result, context);
         },
+      ),
+    );
+  }
+}
+
+class EpisodeItem extends StatelessWidget {
+  const EpisodeItem({
+    super.key,
+    required this.characterData,
+  });
+
+  final dynamic characterData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            color: Theme.of(context).cardColor),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              Container(
+                width: 125,
+                height: 125,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(characterData['image']),
+                      fit: BoxFit.cover),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
+              const SizedBox(height: 25),
+              getParameter(data: characterData, p: "name"),
+              getParameter(data: characterData, p: "species"),
+              getParameter(data: characterData, p: "gender"),
+            ],
+          ),
+        ),
       ),
     );
   }
