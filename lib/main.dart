@@ -69,7 +69,8 @@ ValueNotifier<GraphQLClient> getGraphQlClient() {
 
 Future setWindowMinSize(context) async {
   var platform = Theme.of(context).platform;
-  if (!kIsWeb && !(platform == TargetPlatform.iOS)) {
+  if (!kIsWeb &&
+      !(platform == TargetPlatform.android || platform == TargetPlatform.iOS)) {
     await DesktopWindow.setMinWindowSize(const Size(400, 400));
   }
 }
