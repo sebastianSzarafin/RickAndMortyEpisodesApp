@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rick_and_morty_episodes_display/queries/queries.dart';
+import 'package:rick_and_morty_episodes_display/utils/functions/inner_page_parameter.dart';
 import 'package:rick_and_morty_episodes_display/utils/widgets/rm_circullarprogressindicator.dart';
 
 class EpisodePage extends HookWidget {
@@ -42,12 +43,9 @@ class EpisodePage extends HookWidget {
                   ),
                 ),
                 const SizedBox(height: 25),
-                Parameter(
-                    characterList: characterList, index: index, p: "name"),
-                Parameter(
-                    characterList: characterList, index: index, p: "species"),
-                Parameter(
-                    characterList: characterList, index: index, p: "gender"),
+                getParameter(character: characterList[index], p: "name"),
+                getParameter(character: characterList[index], p: "species"),
+                getParameter(character: characterList[index], p: "gender"),
               ],
             ),
           ),
@@ -82,40 +80,6 @@ class EpisodePage extends HookWidget {
           return _getBody(result, context);
         },
       ),
-    );
-  }
-}
-
-class Parameter extends StatelessWidget {
-  const Parameter({
-    super.key,
-    required this.characterList,
-    required this.index,
-    required this.p,
-  });
-
-  final characterList;
-  final int index;
-  final String p;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          flex: 4,
-          child: Text('${p[0].toUpperCase()}${p.substring(1)}:'),
-        ),
-        Expanded(
-          flex: 6,
-          child: Text(
-            characterList[index][p],
-            textAlign: TextAlign.right,
-            style: const TextStyle(overflow: TextOverflow.ellipsis),
-          ),
-        )
-      ],
     );
   }
 }
