@@ -32,6 +32,36 @@ query(\$page: Int) {
 }
 """;
 
+const allLocationsGraphQL = """
+query(\$page: Int) {
+  locations(page: \$page) {
+    info {
+      count
+      next
+      prev
+    }
+    results {
+      id
+      name
+      type
+    }
+  }
+}
+""";
+
+const singleEpisodeCharactersGraphQl = """
+query(\$id: ID!) {
+  episode(id: \$id) {
+    characters {
+      name
+      species
+      gender
+      image
+    }
+  }
+}
+""";
+
 const singleCharacterGraphQL = """
 query(\$id: ID!) {
   character(id: \$id) {
@@ -56,10 +86,14 @@ query(\$id: ID!) {
 }
 """;
 
-const singleEpisodeCharactersGraphQl = """
+const singleLocationGraphQL = """
 query(\$id: ID!) {
-  episode(id: \$id) {
-    characters {
+  location(id: \$id) {
+    id
+    name
+    type
+    dimension
+    residents {
       name
       species
       gender
