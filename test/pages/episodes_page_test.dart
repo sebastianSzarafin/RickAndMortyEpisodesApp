@@ -1,67 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/mockito.dart';
 import 'package:rick_and_morty_episodes_display/pages/episodes_page.dart';
 
-import 'helper.dart';
+import '../graphql_client_mock.dart';
 
 void main() {
   late MockGraphQLClient mockGraphQLClient;
+  late Widget episodesPageWidget;
 
   setUp(() {
-    mockGraphQLClient = generateMockGraphQLClient();
-  });
-
-  Widget _buildTestScaffold() {
-    return GraphQLProvider(
+    mockGraphQLClient = getMockGraphQLClient();
+    episodesPageWidget = GraphQLProvider(
       client: ValueNotifier(mockGraphQLClient),
       child: const MaterialApp(
         home: EpisodesPage(),
       ),
     );
-  }
+  });
 
   group('episodes_page', () {
     testWidgets('Page shows exception when query result has exception',
         ((widgetTester) async {
-      final result = generateMockWatchQuery(mockGraphQLClient);
-      when(() => result.hasException).thenReturn(true);
+      final result = generateMockObservableQuery(mockGraphQLClient);
+      when(result.hasException).thenReturn(true);
 
-      await widgetTester.pumpWidget(_buildTestScaffold());
+      await widgetTester.pumpWidget(episodesPageWidget);
 
       expect(find.text('There was an issue loading this page'), findsOneWidget);
     }));
     testWidgets(
         'Page shows circular progress indicator when query result is loading',
         ((widgetTester) async {
-      final result = generateMockWatchQuery(mockGraphQLClient);
-      when(() => result.hasException).thenReturn(false);
-      when(() => result.isLoading).thenReturn(true);
+      final result = generateMockObservableQuery(mockGraphQLClient);
+      when(result.hasException).thenReturn(false);
+      when(result.isLoading).thenReturn(true);
 
-      await widgetTester.pumpWidget(_buildTestScaffold());
+      await widgetTester.pumpWidget(episodesPageWidget);
 
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     }));
     testWidgets('Page shows content when query result is correct',
         ((widgetTester) async {
-      final result = generateMockWatchQuery(mockGraphQLClient);
-      when(() => result.hasException).thenReturn(false);
-      when(() => result.isLoading).thenReturn(false);
-      when(() => result.data).thenReturn({
+      final result = generateMockObservableQuery(mockGraphQLClient);
+      when(result.hasException).thenReturn(false);
+      when(result.isLoading).thenReturn(false);
+      when(result.data).thenReturn({
         "episodes": {
           "info": {
             "count": 1,
-          }
-        },
-        "episode": {
-          "id": "1",
-          "name": "Pilot",
-          "episode": "S01E01",
+            "next": 2,
+            "prev": null,
+          },
+          "results": [
+            {
+              "id": "1",
+              "name": "name",
+              "episode": "episode",
+            },
+          ]
         }
       });
 
-      await widgetTester.pumpWidget(_buildTestScaffold());
+      await widgetTester.pumpWidget(episodesPageWidget);
 
       expect(find.byType(ListTile), findsWidgets);
     }));
