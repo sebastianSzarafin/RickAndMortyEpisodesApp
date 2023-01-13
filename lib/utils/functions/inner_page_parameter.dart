@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget getParameter(
-    {required Map<String, dynamic>? character,
+    {required Map<String, dynamic>? data,
     required String p,
     String? def,
     double fontSize = 11}) {
@@ -26,8 +26,8 @@ Widget getParameter(
         ),
         Expanded(
           flex: 6,
-          child: Text(character?[p],
-              textAlign: TextAlign.right, style: parameterStyle),
+          child:
+              Text(data?[p], textAlign: TextAlign.right, style: parameterStyle),
         )
       ],
     ),

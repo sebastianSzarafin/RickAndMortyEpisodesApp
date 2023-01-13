@@ -20,7 +20,7 @@ class CharacterPage extends HookWidget {
   Future<void> _onPressed(BuildContext context, List<dynamic> episodeData) {
     return showModalBottomSheet<void>(
       context: context,
-      backgroundColor: Theme.of(context).cardColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(10.0),
@@ -84,21 +84,18 @@ class CharacterPage extends HookWidget {
                       ),
                     ),
                     const SizedBox(height: 25),
-                    getParameter(character: character, p: "id", fontSize: 15),
-                    getParameter(character: character, p: "name", fontSize: 15),
+                    getParameter(data: character, p: "id", fontSize: 15),
+                    getParameter(data: character, p: "name", fontSize: 15),
+                    getParameter(data: character, p: "status", fontSize: 15),
+                    getParameter(data: character, p: "species", fontSize: 15),
+                    getParameter(data: character, p: "gender", fontSize: 15),
                     getParameter(
-                        character: character, p: "status", fontSize: 15),
-                    getParameter(
-                        character: character, p: "species", fontSize: 15),
-                    getParameter(
-                        character: character, p: "gender", fontSize: 15),
-                    getParameter(
-                        character: character['origin'],
+                        data: character['origin'],
                         p: "name",
                         def: 'Origin location',
                         fontSize: 15),
                     getParameter(
-                        character: character['location'],
+                        data: character['location'],
                         p: "name",
                         def: 'Last known location',
                         fontSize: 15),
