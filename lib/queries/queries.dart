@@ -35,6 +35,7 @@ query(\$page: Int) {
 const singleCharacterGraphQL = """
 query(\$id: ID!) {
   character(id: \$id) {
+    id
     name
     status
     species
@@ -47,6 +48,7 @@ query(\$id: ID!) {
       name
     }
     episode {
+      id
       name
       episode
     }

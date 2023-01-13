@@ -71,6 +71,14 @@ class AppTheme {
           headline6: TextStyle(color: AppColors.textDark),
         ),
         iconTheme: const IconThemeData(color: AppColors.iconDark),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            overlayColor: MaterialStateColor.resolveWith(
+                (states) => const Color(0x1653585A)),
+            foregroundColor:
+                MaterialStateColor.resolveWith((states) => AppColors.textDark),
+          ),
+        ),
       );
 
   /// Dark theme and its settings.
@@ -98,5 +106,13 @@ class AppTheme {
         ),
         listTileTheme: const ListTileThemeData(textColor: AppColors.textLigth),
         iconTheme: const IconThemeData(color: AppColors.iconLight),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            overlayColor: MaterialStateColor.resolveWith(
+                (states) => const Color(0x1653585A)),
+            foregroundColor:
+                MaterialStateProperty.all<Color>(AppColors.textLigth),
+          ),
+        ),
       );
 }
