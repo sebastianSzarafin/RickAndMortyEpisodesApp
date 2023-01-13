@@ -49,6 +49,7 @@ dev_dependencies:
   mocktail: ^0.3.0
   graphql_codegen: ^0.0.1-alpha.1
   flutter_launcher_icons: ^0.11.0
+  flutter_native_splash: ^2.2.16
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -72,6 +73,12 @@ flutter_icons:
   macos:
     generate: true
     image_path: "assets/images/rick-and-morty-main.png"
+
+flutter_native_splash:
+  image: assets/images/rick-and-morty-main-light.jpg
+  color: "#ffffff"
+  image_dark: assets/images/rick-and-morty-main-dark.jpg
+  color_dark: "#000000"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
