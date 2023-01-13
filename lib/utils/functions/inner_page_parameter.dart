@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-Widget getParameter(
-    {required Map<String, dynamic>? data,
-    required String p,
-    String? def,
-    double fontSize = 11}) {
+Widget getParameter({
+  required Map<String, dynamic>? data,
+  required String p,
+  String? def,
+  double fontSize = 11,
+}) {
   TextStyle parameterStyle = TextStyle(
     overflow: TextOverflow.ellipsis,
     fontSize: fontSize,
