@@ -1,7 +1,7 @@
 # Rick & Morty Guide
 
   This small application allows user to check out basic information about the Rick and Morty TV series. It consists of 3 main and 3 inner pages between which user can easily switch through the bottom navigation bar. 
-First one (middle) allows to browse through all emitted episodes and check some basic information about characters which appeared in selected episode. Second (left) and third (right) one allows to check more detailed info of each character and location respectively. 
+  First one (middle) allows to browse through all emitted episodes and check some basic information about characters which appeared in selected episode. Second (left) and third (right) one allows to check more detailed info of each character and location respectively. 
 Each page uses the [Rick and Morty TV series GraphQL API](https://rickandmortyapi.com/documentation/#graphql) and each page has its own tests.
 App is supported on
  - iOS
