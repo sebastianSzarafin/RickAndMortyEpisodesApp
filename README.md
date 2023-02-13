@@ -8,6 +8,7 @@ App is supported on
  - macOS
  - Android
  - Web
+
 and for each of those platform app has an icon. Also, on mobile there is a startup animation. 
 
 
