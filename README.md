@@ -1,7 +1,7 @@
 # Rick & Morty Guide
 
-<p alignt="center">
-<img width="401" alt="Zrzut ekranu 2023-02-13 o 14 43 45" src="https://user-images.githubusercontent.com/74315304/218475739-f54141a0-f178-47bc-bef8-    61d222392996.png">
+<p align="center">
+<img width="401" alt="Zrzut ekranu 2023-02-13 o 14 43 45" src="https://user-images.githubusercontent.com/74315304/218476501-937f317e-73a3-4537-b86f-c70acf37a090.png">
 </p>
 
   This small application allows user to check out basic information about the Rick and Morty TV series. It consists of 3 main and 3 inner pages between which user can easily switch through the bottom navigation bar. 
@@ -16,6 +16,7 @@ App is supported on
  - Web
 
 and for each of those platform app has an icon. Also, on mobile there is a startup animation. 
+
 
 
 
